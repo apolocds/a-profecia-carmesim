@@ -1275,14 +1275,14 @@
             document.getElementById('charBackground').value = char.background || '';
             document.getElementById('charAlignment').value = char.alignment || '';
             document.getElementById('charPlayer').value = char.player || '';
-            document.getElementById('charLevel').value = char.level || 1;
+            document.getElementById('charLevel').value = char.level || 2;
             document.getElementById('profBonus').value = char.profBonus || 2;
             document.getElementById('inspiration').value = char.inspiration || 0;
             document.getElementById('initiative').value = char.initiative || 0;
-            document.getElementById('saveDC').value = char.saveDC || 10;
+            document.getElementById('saveDC').value = char.saveDC || 0;
             document.getElementById('perception').value = char.perception || 10;
-            document.getElementById('charSpeed').value = char.speed || 30;
-            document.getElementById('armorValue').textContent = char.armorClass || 10;
+            document.getElementById('charSpeed').value = char.speed || 0;
+            document.getElementById('armorValue').textContent = char.armorClass || 0;
             
             if (char.image) {
                 document.getElementById('characterImage').innerHTML = `<img src="${char.image}">`;
@@ -1309,7 +1309,7 @@
             renderAttacks();
             renderItems();
             
-            document.getElementById('maxCapacity').value = char.maxCapacity || 150;
+            document.getElementById('maxCapacity').value = char.maxCapacity || 0;
             updateCapacity();
             
             homeScreen.style.display = 'none';
