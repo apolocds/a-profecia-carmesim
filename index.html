@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Organizador de Fichas RPG</title>
+    <title>A Profecia Carmesim</title>
     <style>
         * {
             margin: 0;
@@ -785,12 +785,12 @@
                 <button class="tab-button" onclick="switchTab('combat')">Combate</button>
                 <button class="tab-button" onclick="switchTab('inventory')">Inventário</button>
             </div>
-            <button class="save-button" onclick="saveCharacter()">💾 Salvar Personagem</button>
+            <button class="save-button" onclick="saveCharacter()">Salvar</button>
         </div>
         
         <div class="character-header">
             <div class="character-image" id="characterImage">
-                <div class="character-image-placeholder">Clique para adicionar imagem</div>
+                <div class="character-image-placeholder">Add img</div>
             </div>
             <div class="character-info">
                 <div class="info-field">
@@ -824,11 +824,11 @@
             <div class="stats-row">
             <div class="stat-box">
                 <label>Nível</label>
-                <input type="number" id="charLevel" value="1" min="1">
+                <input type="number" id="charLevel" value="2" min="1">
             </div>
             <div class="stat-box">
                 <label>Bônus de Perícia</label>
-                <input type="number" id="profBonus" value="2">
+                <input type="number" id="profBonus" value="+2">
             </div>
             <div class="stat-box">
                 <label>Inspiração</label>
@@ -840,7 +840,7 @@
             </div>
             <div class="stat-box">
                 <label>CD do TR</label>
-                <input type="number" id="saveDC" value="10">
+                <input type="number" id="saveDC" value="0">
             </div>
             <div class="stat-box">
                 <label>Percepção</label>
@@ -848,13 +848,13 @@
             </div>
             <div class="stat-box">
                 <label>Deslocamento</label>
-                <input type="number" id="charSpeed" value="30">
+                <input type="number" id="charSpeed" value="9">
             </div>
             <div class="armor-class">
                 <svg class="shield-icon" viewBox="0 0 100 120">
                     <path d="M50 5 L10 25 L10 60 Q10 90 50 115 Q90 90 90 60 L90 25 Z" />
                 </svg>
-                <div class="armor-value" id="armorValue">10</div>
+                <div class="armor-value" id="armorValue">0</div>
                 <div class="armor-label">Classe de Armadura</div>
             </div>
         </div>
@@ -873,7 +873,7 @@
             </div>
 
             <div class="bar-wrapper">
-                <div class="bar-label">Pontos de Mana</div>
+                <div class="bar-label">Pontos de Determinação / Mana</div>
                 <div class="bar-control">
                     <button class="bar-button" onclick="changeMana(-1)">-</button>
                     <div class="bar">
@@ -1183,7 +1183,6 @@
         let currentCharacterId = null;
         let characters = [];
 
-        // Carregar personagens salvos
         function loadCharacters() {
             const saved = localStorage.getItem('rpgCharacters');
             if (saved) {
@@ -1192,11 +1191,9 @@
             renderCharacterSlots();
         }
 
-        // Renderizar slots de personagens
         function renderCharacterSlots() {
             homeScreen.innerHTML = '';
             
-            // Adicionar slot de criar novo
             const createSlotElement = document.createElement('div');
             createSlotElement.className = 'create-slot';
             createSlotElement.innerHTML = `
@@ -1206,7 +1203,6 @@
             createSlotElement.addEventListener('click', createNewCharacter);
             homeScreen.appendChild(createSlotElement);
             
-            // Adicionar personagens salvos
             characters.forEach((char, index) => {
                 const slot = document.createElement('div');
                 slot.className = 'character-slot';
@@ -1221,7 +1217,6 @@
             });
         }
 
-        // Criar novo personagem
         function createNewCharacter() {
             currentCharacterId = null;
             clearCharacterData();
@@ -1229,9 +1224,7 @@
             characterCreation.classList.add('active');
         }
 
-        // Limpar dados do personagem
         function clearCharacterData() {
-            // Limpar campos básicos
             document.getElementById('charName').value = '';
             document.getElementById('charRace').value = '';
             document.getElementById('charClass').value = '';
@@ -1247,16 +1240,13 @@
             document.getElementById('charSpeed').value = '30';
             document.getElementById('armorValue').textContent = '10';
             
-            // Limpar imagem
             document.getElementById('characterImage').innerHTML = '<div class="character-image-placeholder">Clique para adicionar imagem</div>';
             
-            // Limpar atributos
             ['str', 'dex', 'con', 'int', 'wis', 'cha'].forEach(attr => {
                 document.getElementById(attr).value = '10';
                 updateModifier(attr);
             });
             
-            // Limpar barras
             currentHealth = 0;
             maxHealth = 0;
             currentMana = 0;
@@ -1264,7 +1254,6 @@
             updateHealthBar();
             updateManaBar();
             
-            // Limpar arrays
             talents = [];
             powers = [];
             attacks = [];
@@ -1276,12 +1265,10 @@
             updateCapacity();
         }
 
-        // Carregar personagem
         function loadCharacter(index) {
             currentCharacterId = index;
             const char = characters[index];
             
-            // Carregar dados básicos
             document.getElementById('charName').value = char.name || '';
             document.getElementById('charRace').value = char.race || '';
             document.getElementById('charClass').value = char.class || '';
@@ -1297,18 +1284,15 @@
             document.getElementById('charSpeed').value = char.speed || 30;
             document.getElementById('armorValue').textContent = char.armorClass || 10;
             
-            // Carregar imagem
             if (char.image) {
                 document.getElementById('characterImage').innerHTML = `<img src="${char.image}">`;
             }
             
-            // Carregar atributos
             ['str', 'dex', 'con', 'int', 'wis', 'cha'].forEach(attr => {
                 document.getElementById(attr).value = char.attributes?.[attr] || 10;
                 updateModifier(attr);
             });
             
-            // Carregar barras
             currentHealth = char.currentHealth || 0;
             maxHealth = char.maxHealth || 0;
             currentMana = char.currentMana || 0;
@@ -1316,7 +1300,6 @@
             updateHealthBar();
             updateManaBar();
             
-            // Carregar arrays
             talents = char.talents || [];
             powers = char.powers || [];
             attacks = char.attacks || [];
@@ -1333,7 +1316,6 @@
             characterCreation.classList.add('active');
         }
 
-        // Salvar personagem
         function saveCharacter() {
             const charData = {
                 name: document.getElementById('charName').value,
@@ -1380,7 +1362,6 @@
             alert('Personagem salvo com sucesso!');
         }
 
-        // Deletar personagem
         function deleteCharacter(index, event) {
             event.stopPropagation();
             if (confirm('Tem certeza que deseja deletar este personagem?')) {
@@ -1402,12 +1383,10 @@
             renderCharacterSlots();
         });
 
-        // Função para calcular modificador
         function calcularModificador(valorAtributo) {
             return Math.floor((valorAtributo - 10) / 2);
         }
 
-        // Atualizar modificador de atributo
         function updateModifier(attr) {
             const value = parseInt(document.getElementById(attr).value) || 10;
             const modifier = calcularModificador(value);
@@ -1415,10 +1394,8 @@
             document.getElementById(`${attr}-mod`).textContent = modifierText;
         }
 
-        // Inicializar todos os modificadores
         ['str', 'dex', 'con', 'int', 'wis', 'cha'].forEach(attr => updateModifier(attr));
 
-        // Funções para barras de vida
         function changeHealth(amount) {
             currentHealth = Math.max(0, Math.min(maxHealth, currentHealth + amount));
             updateHealthBar();
@@ -1430,7 +1407,6 @@
             document.getElementById('healthText').textContent = `${currentHealth} / ${maxHealth}`;
         }
 
-        // Funções para barras de mana
         function changeMana(amount) {
             currentMana = Math.max(0, Math.min(maxMana, currentMana + amount));
             updateManaBar();
@@ -1442,7 +1418,6 @@
             document.getElementById('manaText').textContent = `${currentMana} / ${maxMana}`;
         }
 
-        // Upload de imagem
         document.getElementById('characterImage').addEventListener('click', function() {
             const input = document.createElement('input');
             input.type = 'file';
@@ -1463,7 +1438,6 @@
             input.click();
         });
 
-        // Input para valores máximos de vida e mana
         document.getElementById('healthText').addEventListener('click', function() {
             const newMax = prompt('Digite o valor máximo de Pontos de Vida:', maxHealth);
             if (newMax !== null && !isNaN(newMax)) {
@@ -1474,7 +1448,7 @@
         });
 
         document.getElementById('manaText').addEventListener('click', function() {
-            const newMax = prompt('Digite o valor máximo de Pontos de Mana:', maxMana);
+            const newMax = prompt('Digite o valor máximo de Pontos de Determinação / Mana:', maxMana);
             if (newMax !== null && !isNaN(newMax)) {
                 maxMana = parseInt(newMax);
                 currentMana = maxMana;
@@ -1482,7 +1456,6 @@
             }
         });
 
-        // Input para Classe de Armadura
         document.getElementById('armorValue').addEventListener('click', function() {
             const newAC = prompt('Digite a Classe de Armadura:', this.textContent);
             if (newAC !== null && !isNaN(newAC)) {
@@ -1490,7 +1463,6 @@
             }
         });
 
-        // Sistema de Abas
         function switchTab(tabName) {
             const tabs = document.querySelectorAll('.tab-content');
             const buttons = document.querySelectorAll('.tab-button');
@@ -1513,7 +1485,6 @@
             }
         }
 
-        // Funções para Truques e Talentos
         function openTalentModal(index = -1) {
             editingTalentIndex = index;
             const modal = document.getElementById('talentModal');
@@ -1569,7 +1540,6 @@
             });
         }
 
-        // Funções para Poderes
         function openPowerModal(index = -1) {
             editingPowerIndex = index;
             const modal = document.getElementById('powerModal');
@@ -1640,7 +1610,6 @@
             });
         }
 
-        // Funções para Ataques
         function openAttackModal(index = -1) {
             editingAttackIndex = index;
             const modal = document.getElementById('attackModal');
@@ -1719,7 +1688,6 @@
             });
         }
 
-        // Funções para Itens do Inventário
         function openItemModal(index = -1) {
             editingItemIndex = index;
             const modal = document.getElementById('itemModal');
@@ -1781,7 +1749,7 @@
         }
 
         function updateCapacity() {
-            const maxCapacity = parseFloat(document.getElementById('maxCapacity').value) || 150;
+            const maxCapacity = parseFloat(document.getElementById('maxCapacity').value) || 0;
             const currentCapacity = items.reduce((total, item) => total + item.load, 0);
             
             const percentage = maxCapacity > 0 ? (currentCapacity / maxCapacity) * 100 : 0;
@@ -1789,7 +1757,6 @@
             
             fill.style.width = Math.min(percentage, 100) + '%';
             
-            // Mudar cor baseado na porcentagem
             fill.classList.remove('warning', 'danger');
             if (percentage >= 100) {
                 fill.classList.add('danger');
@@ -1800,10 +1767,8 @@
             document.getElementById('capacityText').textContent = `${currentCapacity.toFixed(1)} / ${maxCapacity}`;
         }
 
-        // Inicializar capacidade
         updateCapacity();
 
-        // Carregar personagens ao iniciar
         loadCharacters();
     </script>
 </body>
