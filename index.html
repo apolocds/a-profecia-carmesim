@@ -1170,7 +1170,7 @@
                 </div>
                 <div class="capacity-bar">
                     <div class="capacity-fill" id="capacityFill"></div>
-                    <div class="capacity-text" id="capacityText">0 / 150</div>
+                    <div class="capacity-text" id="capacityText">0 / 0</div>
                 </div>
             </div>
         </div>
@@ -1369,7 +1369,7 @@
             document.getElementById('profBonus').value = '2';
             document.getElementById('inspiration').value = '0';
             document.getElementById('initiative').value = '0';
-            document.getElementById('saveDC').value = '';
+            document.getElementById('saveDC').value = '0';
             document.getElementById('perception').value = '10';
             document.getElementById('charSpeed').value = '9';
             document.getElementById('armorValue').textContent = '0';
@@ -1471,7 +1471,7 @@
             renderAttacks();
             renderItems();
             
-            document.getElementById('maxCapacity').value = char.maxCapacity || 150;
+            document.getElementById('maxCapacity').value = char.maxCapacity || 0;
             updateCapacity();
             
             bronze = char.bronze || 0;
@@ -1936,7 +1936,7 @@
         }
 
         function updateCapacity() {
-            const maxCapacity = parseFloat(document.getElementById('maxCapacity').value) || 150;
+            const maxCapacity = parseFloat(document.getElementById('maxCapacity').value) || 0;
             const currentCapacity = items.reduce((total, item) => total + item.load, 0);
             
             const percentage = maxCapacity > 0 ? (currentCapacity / maxCapacity) * 100 : 0;
