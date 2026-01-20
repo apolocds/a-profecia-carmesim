@@ -513,6 +513,10 @@
             text-align: center;
         }
 
+        .skill-item input[data-skill] {
+            background-color: transparent;
+        }
+
         .abilities-container {
             margin-top: 20px;
         }
@@ -766,6 +770,101 @@
             color: #aaa;
             margin-bottom: 8px;
         }
+
+        .currency-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            padding: 20px;
+        }
+
+        .currency-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .currency-shape {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hexagon {
+            width: 80px;
+            height: 46px;
+            background-color: #cd7f32;
+            position: relative;
+            margin: 17px 0;
+        }
+
+        .hexagon:before,
+        .hexagon:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            border-left: 40px solid transparent;
+            border-right: 40px solid transparent;
+        }
+
+        .hexagon:before {
+            bottom: 100%;
+            border-bottom: 23px solid #cd7f32;
+        }
+
+        .hexagon:after {
+            top: 100%;
+            border-top: 23px solid #cd7f32;
+        }
+
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 40px solid transparent;
+            border-right: 40px solid transparent;
+            border-bottom: 70px solid #c0c0c0;
+        }
+
+        .circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #ffd700;
+        }
+
+        .currency-value {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+            font-weight: bold;
+            color: #000;
+            z-index: 1;
+        }
+
+        .currency-input {
+            background-color: transparent;
+            border: 2px solid #fff;
+            color: #fff;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 16px;
+            width: 100px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .currency-label {
+            font-size: 12px;
+            color: #aaa;
+            text-transform: uppercase;
+        }
     </style>
 </head>
 <body>
@@ -785,12 +884,12 @@
                 <button class="tab-button" onclick="switchTab('combat')">Combate</button>
                 <button class="tab-button" onclick="switchTab('inventory')">Inventário</button>
             </div>
-            <button class="save-button" onclick="saveCharacter()">Salvar</button>
+            <button class="save-button" onclick="saveCharacter()">💾 Salvar Personagem</button>
         </div>
         
         <div class="character-header">
             <div class="character-image" id="characterImage">
-                <div class="character-image-placeholder">Add img</div>
+                <div class="character-image-placeholder">Clique para adicionar imagem</div>
             </div>
             <div class="character-info">
                 <div class="info-field">
@@ -828,7 +927,7 @@
             </div>
             <div class="stat-box">
                 <label>Bônus de Perícia</label>
-                <input type="number" id="profBonus" value="+2">
+                <input type="number" id="profBonus" value="2">
             </div>
             <div class="stat-box">
                 <label>Inspiração</label>
@@ -923,75 +1022,75 @@
             <div class="skills-grid">
                 <div class="skill-item">
                     <span class="skill-label">Acrobacia <span class="skill-attr">(Des)</span></span>
-                    <input type="number" value="0">
+                    <input type="number" value="0" data-skill="acrobacia">
                 </div>
                 <div class="skill-item">
                     <span class="skill-label">Arcanismo <span class="skill-attr">(Int)</span></span>
-                    <input type="number" value="0">
+                    <input type="number" value="0" data-skill="arcanismo">
                 </div>
                 <div class="skill-item">
                     <span class="skill-label">Atletismo <span class="skill-attr">(For)</span></span>
-                    <input type="number" value="0">
+                    <input type="number" value="0" data-skill="atletismo">
                 </div>
                 <div class="skill-item">
                     <span class="skill-label">Atuação <span class="skill-attr">(Car)</span></span>
-                    <input type="number" value="0">
+                    <input type="number" value="0" data-skill="atuacao">
                 </div>
                 <div class="skill-item">
                     <span class="skill-label">Blefar <span class="skill-attr">(Car)</span></span>
-                    <input type="number" value="0">
+                    <input type="number" value="0" data-skill="blefar">
                 </div>
                 <div class="skill-item">
                     <span class="skill-label">Furtividade <span class="skill-attr">(Des)</span></span>
-                    <input type="number" value="0">
+                    <input type="number" value="0" data-skill="furtividade">
                 </div>
                 <div class="skill-item">
                     <span class="skill-label">História <span class="skill-attr">(Int)</span></span>
-                    <input type="number" value="0">
+                    <input type="number" value="0" data-skill="historia">
                 </div>
                 <div class="skill-item">
                     <span class="skill-label">Intimidação <span class="skill-attr">(Car)</span></span>
-                    <input type="number" value="0">
+                    <input type="number" value="0" data-skill="intimidacao">
                 </div>
                 <div class="skill-item">
                     <span class="skill-label">Intuição <span class="skill-attr">(Sab)</span></span>
-                    <input type="number" value="0">
+                    <input type="number" value="0" data-skill="intuicao">
                 </div>
                 <div class="skill-item">
                     <span class="skill-label">Investigação <span class="skill-attr">(Int)</span></span>
-                    <input type="number" value="0">
+                    <input type="number" value="0" data-skill="investigacao">
                 </div>
                 <div class="skill-item">
                     <span class="skill-label">Lidar com Animais <span class="skill-attr">(Sab)</span></span>
-                    <input type="number" value="0">
+                    <input type="number" value="0" data-skill="animais">
                 </div>
                 <div class="skill-item">
                     <span class="skill-label">Medicina <span class="skill-attr">(Sab)</span></span>
-                    <input type="number" value="0">
+                    <input type="number" value="0" data-skill="medicina">
                 </div>
                 <div class="skill-item">
                     <span class="skill-label">Natureza <span class="skill-attr">(Int)</span></span>
-                    <input type="number" value="0">
+                    <input type="number" value="0" data-skill="natureza">
                 </div>
                 <div class="skill-item">
                     <span class="skill-label">Percepção <span class="skill-attr">(Sab)</span></span>
-                    <input type="number" value="0">
+                    <input type="number" value="0" data-skill="percepcao">
                 </div>
                 <div class="skill-item">
                     <span class="skill-label">Persuasão <span class="skill-attr">(Car)</span></span>
-                    <input type="number" value="0">
+                    <input type="number" value="0" data-skill="persuasao">
                 </div>
                 <div class="skill-item">
                     <span class="skill-label">Prestidigitação <span class="skill-attr">(Des)</span></span>
-                    <input type="number" value="0">
+                    <input type="number" value="0" data-skill="prestidigitacao">
                 </div>
                 <div class="skill-item">
                     <span class="skill-label">Religião <span class="skill-attr">(Int)</span></span>
-                    <input type="number" value="0">
+                    <input type="number" value="0" data-skill="religiao">
                 </div>
                 <div class="skill-item">
                     <span class="skill-label">Sobrevivência <span class="skill-attr">(Sab)</span></span>
-                    <input type="number" value="0">
+                    <input type="number" value="0" data-skill="sobrevivencia">
                 </div>
             </div>
         </div>
@@ -1024,6 +1123,38 @@
     </div>
 
     <div id="inventoryTab" class="tab-content">
+        <div class="currency-container">
+            <div class="currency-item">
+                <div class="currency-shape">
+                    <div class="hexagon">
+                        <div class="currency-value" id="bronzeDisplay">0</div>
+                    </div>
+                </div>
+                <input type="number" class="currency-input" id="bronzeInput" value="0" min="0" oninput="updateCurrency('bronze')">
+                <div class="currency-label">Bronze</div>
+            </div>
+            
+            <div class="currency-item">
+                <div class="currency-shape">
+                    <div class="triangle">
+                        <div class="currency-value" id="silverDisplay">0</div>
+                    </div>
+                </div>
+                <input type="number" class="currency-input" id="silverInput" value="0" min="0" oninput="updateCurrency('silver')">
+                <div class="currency-label">Prata</div>
+            </div>
+            
+            <div class="currency-item">
+                <div class="currency-shape">
+                    <div class="circle">
+                        <div class="currency-value" id="goldDisplay">0</div>
+                    </div>
+                </div>
+                <input type="number" class="currency-input" id="goldInput" value="0" min="0" oninput="updateCurrency('gold')">
+                <div class="currency-label">Ouro</div>
+            </div>
+        </div>
+        
         <div class="abilities-container">
             <div class="ability-section">
                 <div class="ability-section-title">Inventário</div>
@@ -1035,7 +1166,7 @@
                 <div class="capacity-bar-title">Capacidade de Carga</div>
                 <div class="capacity-input-row">
                     <label>Capacidade Máxima:</label>
-                    <input type="number" id="maxCapacity" value="150" oninput="updateCapacity()">
+                    <input type="number" id="maxCapacity" value="0" oninput="updateCapacity()">
                 </div>
                 <div class="capacity-bar">
                     <div class="capacity-fill" id="capacityFill"></div>
@@ -1182,6 +1313,9 @@
         let editingItemIndex = -1;
         let currentCharacterId = null;
         let characters = [];
+        let bronze = 0;
+        let silver = 0;
+        let gold = 0;
 
         function loadCharacters() {
             const saved = localStorage.getItem('rpgCharacters');
@@ -1231,20 +1365,28 @@
             document.getElementById('charBackground').value = '';
             document.getElementById('charAlignment').value = '';
             document.getElementById('charPlayer').value = '';
-            document.getElementById('charLevel').value = '2';
+            document.getElementById('charLevel').value = '1';
             document.getElementById('profBonus').value = '2';
             document.getElementById('inspiration').value = '0';
             document.getElementById('initiative').value = '0';
-            document.getElementById('saveDC').value = '0';
+            document.getElementById('saveDC').value = '10';
             document.getElementById('perception').value = '10';
-            document.getElementById('charSpeed').value = '9';
-            document.getElementById('armorValue').textContent = '0';
+            document.getElementById('charSpeed').value = '30';
+            document.getElementById('armorValue').textContent = '10';
             
             document.getElementById('characterImage').innerHTML = '<div class="character-image-placeholder">Clique para adicionar imagem</div>';
             
             ['str', 'dex', 'con', 'int', 'wis', 'cha'].forEach(attr => {
                 document.getElementById(attr).value = '10';
                 updateModifier(attr);
+            });
+            
+            const skillNames = ['acrobacia', 'arcanismo', 'atletismo', 'atuacao', 'blefar', 'furtividade', 
+                              'historia', 'intimidacao', 'intuicao', 'investigacao', 'animais', 'medicina', 
+                              'natureza', 'percepcao', 'persuasao', 'prestidigitacao', 'religiao', 'sobrevivencia'];
+            skillNames.forEach(skill => {
+                const input = document.querySelector(`input[data-skill="${skill}"]`);
+                if (input) input.value = '0';
             });
             
             currentHealth = 0;
@@ -1263,6 +1405,16 @@
             renderAttacks();
             renderItems();
             updateCapacity();
+            
+            bronze = 0;
+            silver = 0;
+            gold = 0;
+            document.getElementById('bronzeInput').value = '0';
+            document.getElementById('silverInput').value = '0';
+            document.getElementById('goldInput').value = '0';
+            updateCurrency('bronze');
+            updateCurrency('silver');
+            updateCurrency('gold');
         }
 
         function loadCharacter(index) {
@@ -1275,14 +1427,14 @@
             document.getElementById('charBackground').value = char.background || '';
             document.getElementById('charAlignment').value = char.alignment || '';
             document.getElementById('charPlayer').value = char.player || '';
-            document.getElementById('charLevel').value = char.level || 2;
+            document.getElementById('charLevel').value = char.level || 1;
             document.getElementById('profBonus').value = char.profBonus || 2;
             document.getElementById('inspiration').value = char.inspiration || 0;
             document.getElementById('initiative').value = char.initiative || 0;
-            document.getElementById('saveDC').value = char.saveDC || 0;
+            document.getElementById('saveDC').value = char.saveDC || 10;
             document.getElementById('perception').value = char.perception || 10;
-            document.getElementById('charSpeed').value = char.speed || 0;
-            document.getElementById('armorValue').textContent = char.armorClass || 0;
+            document.getElementById('charSpeed').value = char.speed || 30;
+            document.getElementById('armorValue').textContent = char.armorClass || 10;
             
             if (char.image) {
                 document.getElementById('characterImage').innerHTML = `<img src="${char.image}">`;
@@ -1291,6 +1443,16 @@
             ['str', 'dex', 'con', 'int', 'wis', 'cha'].forEach(attr => {
                 document.getElementById(attr).value = char.attributes?.[attr] || 10;
                 updateModifier(attr);
+            });
+            
+            const skillNames = ['acrobacia', 'arcanismo', 'atletismo', 'atuacao', 'blefar', 'furtividade', 
+                              'historia', 'intimidacao', 'intuicao', 'investigacao', 'animais', 'medicina', 
+                              'natureza', 'percepcao', 'persuasao', 'prestidigitacao', 'religiao', 'sobrevivencia'];
+            skillNames.forEach(skill => {
+                const input = document.querySelector(`input[data-skill="${skill}"]`);
+                if (input) {
+                    input.value = char.skills?.[skill] || 0;
+                }
             });
             
             currentHealth = char.currentHealth || 0;
@@ -1309,14 +1471,35 @@
             renderAttacks();
             renderItems();
             
-            document.getElementById('maxCapacity').value = char.maxCapacity || 0;
+            document.getElementById('maxCapacity').value = char.maxCapacity || 150;
             updateCapacity();
+            
+            bronze = char.bronze || 0;
+            silver = char.silver || 0;
+            gold = char.gold || 0;
+            document.getElementById('bronzeInput').value = bronze;
+            document.getElementById('silverInput').value = silver;
+            document.getElementById('goldInput').value = gold;
+            updateCurrency('bronze');
+            updateCurrency('silver');
+            updateCurrency('gold');
             
             homeScreen.style.display = 'none';
             characterCreation.classList.add('active');
         }
 
         function saveCharacter() {
+            const skillNames = ['acrobacia', 'arcanismo', 'atletismo', 'atuacao', 'blefar', 'furtividade', 
+                              'historia', 'intimidacao', 'intuicao', 'investigacao', 'animais', 'medicina', 
+                              'natureza', 'percepcao', 'persuasao', 'prestidigitacao', 'religiao', 'sobrevivencia'];
+            const skills = {};
+            skillNames.forEach(skill => {
+                const input = document.querySelector(`input[data-skill="${skill}"]`);
+                if (input) {
+                    skills[skill] = parseInt(input.value) || 0;
+                }
+            });
+            
             const charData = {
                 name: document.getElementById('charName').value,
                 race: document.getElementById('charRace').value,
@@ -1341,6 +1524,7 @@
                     wis: document.getElementById('wis').value,
                     cha: document.getElementById('cha').value
                 },
+                skills: skills,
                 currentHealth,
                 maxHealth,
                 currentMana,
@@ -1349,7 +1533,10 @@
                 powers,
                 attacks,
                 items,
-                maxCapacity: document.getElementById('maxCapacity').value
+                maxCapacity: document.getElementById('maxCapacity').value,
+                bronze,
+                silver,
+                gold
             };
             
             if (currentCharacterId !== null) {
@@ -1448,7 +1635,7 @@
         });
 
         document.getElementById('manaText').addEventListener('click', function() {
-            const newMax = prompt('Digite o valor máximo de Pontos de Determinação / Mana:', maxMana);
+            const newMax = prompt('Digite o valor máximo de Pontos de Mana:', maxMana);
             if (newMax !== null && !isNaN(newMax)) {
                 maxMana = parseInt(newMax);
                 currentMana = maxMana;
@@ -1749,7 +1936,7 @@
         }
 
         function updateCapacity() {
-            const maxCapacity = parseFloat(document.getElementById('maxCapacity').value) || 0;
+            const maxCapacity = parseFloat(document.getElementById('maxCapacity').value) || 150;
             const currentCapacity = items.reduce((total, item) => total + item.load, 0);
             
             const percentage = maxCapacity > 0 ? (currentCapacity / maxCapacity) * 100 : 0;
@@ -1765,6 +1952,21 @@
             }
             
             document.getElementById('capacityText').textContent = `${currentCapacity.toFixed(1)} / ${maxCapacity}`;
+        }
+
+        function updateCurrency(type) {
+            const value = parseInt(document.getElementById(`${type}Input`).value) || 0;
+            
+            if (type === 'bronze') {
+                bronze = value;
+                document.getElementById('bronzeDisplay').textContent = bronze;
+            } else if (type === 'silver') {
+                silver = value;
+                document.getElementById('silverDisplay').textContent = silver;
+            } else if (type === 'gold') {
+                gold = value;
+                document.getElementById('goldDisplay').textContent = gold;
+            }
         }
 
         updateCapacity();
